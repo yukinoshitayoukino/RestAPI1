@@ -1,18 +1,23 @@
-import json
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import List
+from fastapi import FastAPI
+from utils import json_to_dict_list
 import os
-import uvicorn
+from typing import Optional
+app = FastAPI()
 
-# Модель данных для услуг
-class Service(BaseModel):
-    id: int
-    name: str
-    category: str
-    description: str
-    price: float
-    duration_minutes: int
-    difficulty_level: int
-    popularity_score: float
 
+
+# Импорт данных из файла со списокм услуг
+# Получаем путь к директории текущего скрипта
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Переходим на уровень выше
+parent_dir = os.path.dirname(script_dir)
+
+# Получаем путь к JSON
+path_to_json = os.path.join(parent_dir, 'services.json')
+@app.get("/services")
+def get_all_services():
+    return json_to_dict_list("services.json")
+@app.get("/")
+def home_page():
+    return {"message": "Услуги парикмахерской"}
