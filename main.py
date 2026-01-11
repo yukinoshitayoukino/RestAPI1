@@ -89,6 +89,10 @@ servises= [
 @app.get("/services")
 def get_services():
     return servises
+@app.get("/services"{id}")
+def get_service(id: int):
+    return servises[id]
+
 
 # Запускаем сервер с использованием модуля
 if __name__ == "__main__":
