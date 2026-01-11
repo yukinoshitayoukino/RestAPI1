@@ -28,3 +28,11 @@ def home_page():
 '''
 Основная часть выполнения лабораторной работы
 '''
+@app.get("/services/{service_id}")
+def get_service(service_id: int):
+    services = json_to_dict_list(path_to_json)
+    return_list = []
+    for service in services:
+        if service["id"] == service_id:
+            return_list.append(service)
+    return return_list
