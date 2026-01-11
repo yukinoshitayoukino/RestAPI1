@@ -15,9 +15,16 @@ parent_dir = os.path.dirname(script_dir)
 
 # Получаем путь к JSON
 path_to_json = os.path.join(parent_dir, 'services.json')
+
+# Запрос на получение всех услуг
 @app.get("/services")
 def get_all_services():
     return json_to_dict_list("services.json")
+# Заглушка главной страницы
 @app.get("/")
 def home_page():
     return {"message": "Услуги парикмахерской"}
+
+'''
+Основная часть выполнения лабораторной работы
+'''
