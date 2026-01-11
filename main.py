@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 app = FastAPI()
 
@@ -87,12 +87,14 @@ servises= [
         ]
 
 @app.get("/services")
-def get_services():
+def list_services():
     return servises
-@app.get("/services"{id}")
+@app.get("/services/{id}")
 def get_service(id: int):
-    return servises[id]
-
+    for service in servises:
+        if service ["id"] == id:
+            return service
+    raise HTTPException(status_code=404, detail="Service not found")
 
 # Запускаем сервер с использованием модуля
 if __name__ == "__main__":
