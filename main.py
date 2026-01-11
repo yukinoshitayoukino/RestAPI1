@@ -1,19 +1,95 @@
+import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 app = FastAPI()
 
+servises= [
+            {
+                "id": 1,
+                "name": "Мужская стрижка",
+                "category": "стрижка",
+                "description": "Классическая мужская стрижка",
+                "price": 1200.0,
+                "duration_minutes": 45,
+                "difficulty_level": 2,
+                "popularity_score": 8.5,
+            },
+            {
+                "id": 2,
+                "name": "Женская стрижка",
+                "category": "стрижка",
+                "description": "Стрижка с укладкой",
+                "price": 2000.0,
+                "duration_minutes": 90,
+                "difficulty_level": 3,
+                "popularity_score": 9.0,
+            },
+            {
+                "id": 3,
+                "name": "Окрашивание волос",
+                "category": "окрашивание",
+                "description": "Полное окрашивание",
+                "price": 3500.0,
+                "duration_minutes": 120,
+                "difficulty_level": 4,
+                "popularity_score": 8.0,
+            },
+            {
+                "id": 4,
+                "name": "Мелирование",
+                "category": "окрашивание",
+                "description": "Частичное мелирование",
+                "price": 4200.0,
+                "duration_minutes": 150,
+                "difficulty_level": 5,
+                "popularity_score": 7.5,
+            },
+            {
+                "id": 5,
+                "name": "Укладка феном",
+                "category": "укладка",
+                "description": "Укладка с использованием профессиональных средств",
+                "price": 800.0,
+                "duration_minutes": 30,
+                "difficulty_level": 1,
+                "popularity_score": 9.5,
+            },
+            {
+                "id": 6,
+                "name": "SPA-уход",
+                "category": "лечение",
+                "description": "Глубокое восстановление волос",
+                "price": 2800.0,
+                "duration_minutes": 60,
+                "difficulty_level": 3,
+                "popularity_score": 6.5,
+            },
+            {
+                "id": 7,
+                "name": "Моделирование бороды",
+                "category": "борода",
+                "description": "Стрижка и укладка бороды",
+                "price": 900.0,
+                "duration_minutes": 25,
+                "difficulty_level": 2,
+                "popularity_score": 8.0,
+            },
+            {
+                "id": 8,
+                "name": "Мужской маникюр",
+                "category": "маникюр",
+                "description": "Гигиенический маникюр",
+                "price": 700.0,
+                "duration_minutes": 40,
+                "difficulty_level": 1,
+                "popularity_score": 7.0,
+            }
+        ]
 
-class User(BaseModel):
-    name: str
-    age: int
+@app.get("/services")
+def get_services():
+    return servises
 
-
-@app.get('/users/{user_id}')
-def get_user(user_id):
-    return User(name="John Doe", age=20)
-
-@app.put('/users/{user_id}')
-def update_user(user_id, user: User):
-# поместите сюда код для обновления данных
-    return user
-
+# Запускаем сервер с использованием модуля
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
