@@ -65,6 +65,41 @@ def get_service_from_param_id(service_id: int):
     for service in services:
         if service["id"] == service_id:
             return service
+from json_db_lite import JSONDatabase
 
+# инициализация объекта
+small_db = JSONDatabase(file_path='services.json')
+
+
+# получаем все записи
+def json_to_dict_list():
+    return small_db.get_all_records()
+
+
+# добавляем студента
+def add_service(service: dict):
+    service['id'] = service['id']
+    small_db.add_records(service)
+    return True
+
+
+# обновляем данные по студенту
+def upd_service(upd_filter: dict, new_data: dict):
+    small_db.update_record_by_key(upd_filter, new_data)
+    return True
+
+
+# удаляем студента
+def dell_service(key: str, value: str):
+    small_db.delete_record_by_key(key, value)
+    return True
+@app.post("/add_service")
+def add_student_handler(service: Services):
+    service_dict = service.dict()
+    check = add_service(service_dict)
+    if check:
+        return {"message": "Сервис успешно добавлен!"}
+    else:
+        return {"message": "Ошибка при добавлении сервиса"}
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=8000)
