@@ -1,82 +1,92 @@
 [
-  {
-    "id": 1,
-    "name": "Мужская стрижка",
-    "category": "стрижка",
-    "description": "Классическая мужская стрижка",
-    "price": 1200.0,
-    "duration_minutes": 45,
-    "difficulty_level": 2,
-    "popularity_score": 8.5
-  },
-  {
-    "id": 2,
-    "name": "Женская стрижка",
-    "category": "стрижка",
-    "description": "Стрижка с укладкой",
-    "price": 2000.0,
-    "duration_minutes": 90,
-    "difficulty_level": 3,
-    "popularity_score": 9.0
-  },
-  {
-    "id": 3,
-    "name": "Окрашивание волос",
-    "category": "окрашивание",
-    "description": "Полное окрашивание",
-    "price": 3500.0,
-    "duration_minutes": 120,
-    "difficulty_level": 4,
-    "popularity_score": 8.0
-  },
-  {
-    "id": 4,
-    "name": "Мелирование",
-    "category": "окрашивание",
-    "description": "Частичное мелирование",
-    "price": 4200.0,
-    "duration_minutes": 150,
-    "difficulty_level": 5,
-    "popularity_score": 7.5
-  },
-  {
-    "id": 5,
-    "name": "Укладка феном",
-    "category": "укладка",
-    "description": "Укладка с использованием профессиональных средств",
-    "price": 800.0,
-    "duration_minutes": 30,
-    "difficulty_level": 1,
-    "popularity_score": 9.5
-  },
-  {
-    "id": 6,
-    "name": "SPA-уход",
-    "category": "лечение",
-    "description": "Глубокое восстановление волос",
-    "price": 2800.0,
-    "duration_minutes": 60,
-    "difficulty_level": 3,
-    "popularity_score": 6.5
-  },
-  {
-    "id": 7,
-    "name": "Моделирование бороды",
-    "category": "борода",
-    "description": "Стрижка и укладка бороды",
-    "price": 900.0,
-    "duration_minutes": 25,
-    "difficulty_level": 2,
-    "popularity_score": 8.0
-  },
-  {
-    "id": 8,
-    "name": "Мужской маникюр",
-    "category": "маникюр",
-    "description": "Гигиенический маникюр",
-    "price": 700.0,
-    "duration_minutes": 40,
-    "difficulty_level": 1,
-    "popularity_score": 7.0
-  }
+    {
+        "id": 1,
+        "name": "\u041c\u0443\u0436\u0441\u043a\u0430\u044f \u0441\u0442\u0440\u0438\u0436\u043a\u0430",
+        "category": "\u0441\u0442\u0440\u0438\u0436\u043a\u0430",
+        "description": "\u041a\u043b\u0430\u0441\u0441\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u043c\u0443\u0436\u0441\u043a\u0430\u044f \u0441\u0442\u0440\u0438\u0436\u043a\u0430",
+        "price": 1200.0,
+        "duration_minutes": 45,
+        "difficulty_level": 2,
+        "popularity_score": 8.5
+    },
+    {
+        "id": 2,
+        "name": "\u0416\u0435\u043d\u0441\u043a\u0430\u044f \u0441\u0442\u0440\u0438\u0436\u043a\u0430",
+        "category": "\u0441\u0442\u0440\u0438\u0436\u043a\u0430",
+        "description": "\u0421\u0442\u0440\u0438\u0436\u043a\u0430 \u0441 \u0443\u043a\u043b\u0430\u0434\u043a\u043e\u0439",
+        "price": 2000.0,
+        "duration_minutes": 90,
+        "difficulty_level": 3,
+        "popularity_score": 9.0
+    },
+    {
+        "id": 3,
+        "name": "\u041e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u043d\u0438\u0435 \u0432\u043e\u043b\u043e\u0441",
+        "category": "\u043e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u043d\u0438\u0435",
+        "description": "\u041f\u043e\u043b\u043d\u043e\u0435 \u043e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u043d\u0438\u0435",
+        "price": 3500.0,
+        "duration_minutes": 120,
+        "difficulty_level": 4,
+        "popularity_score": 8.0
+    },
+    {
+        "id": 4,
+        "name": "\u041c\u0435\u043b\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435",
+        "category": "\u043e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u043d\u0438\u0435",
+        "description": "\u0427\u0430\u0441\u0442\u0438\u0447\u043d\u043e\u0435 \u043c\u0435\u043b\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435",
+        "price": 4200.0,
+        "duration_minutes": 150,
+        "difficulty_level": 5,
+        "popularity_score": 7.5
+    },
+    {
+        "id": 5,
+        "name": "\u0423\u043a\u043b\u0430\u0434\u043a\u0430 \u0444\u0435\u043d\u043e\u043c",
+        "category": "\u0443\u043a\u043b\u0430\u0434\u043a\u0430",
+        "description": "\u0423\u043a\u043b\u0430\u0434\u043a\u0430 \u0441 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u0435\u043c \u043f\u0440\u043e\u0444\u0435\u0441\u0441\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0440\u0435\u0434\u0441\u0442\u0432",
+        "price": 800.0,
+        "duration_minutes": 30,
+        "difficulty_level": 1,
+        "popularity_score": 9.5
+    },
+    {
+        "id": 6,
+        "name": "SPA-\u0443\u0445\u043e\u0434",
+        "category": "\u043b\u0435\u0447\u0435\u043d\u0438\u0435",
+        "description": "\u0413\u043b\u0443\u0431\u043e\u043a\u043e\u0435 \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u0432\u043e\u043b\u043e\u0441",
+        "price": 2800.0,
+        "duration_minutes": 60,
+        "difficulty_level": 3,
+        "popularity_score": 6.5
+    },
+    {
+        "id": 7,
+        "name": "\u041c\u043e\u0434\u0435\u043b\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0431\u043e\u0440\u043e\u0434\u044b",
+        "category": "\u0431\u043e\u0440\u043e\u0434\u0430",
+        "description": "\u0421\u0442\u0440\u0438\u0436\u043a\u0430 \u0438 \u0443\u043a\u043b\u0430\u0434\u043a\u0430 \u0431\u043e\u0440\u043e\u0434\u044b",
+        "price": 900.0,
+        "duration_minutes": 25,
+        "difficulty_level": 2,
+        "popularity_score": 8.0
+    },
+    {
+        "id": 8,
+        "name": "\u041c\u0443\u0436\u0441\u043a\u043e\u0439 \u043c\u0430\u043d\u0438\u043a\u044e\u0440",
+        "category": "\u043c\u0430\u043d\u0438\u043a\u044e\u0440",
+        "description": "\u0413\u0438\u0433\u0438\u0435\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043c\u0430\u043d\u0438\u043a\u044e\u0440",
+        "price": 700.0,
+        "duration_minutes": 40,
+        "difficulty_level": 1,
+        "popularity_score": 7.0
+    },
+    {
+        "id": 9,
+        "name": "\u043c\u044b\u0442\u044c\u0435 \u0433\u043e\u043b\u043e\u0432\u044b",
+        "category": "\u0441\u0442\u0440\u0438\u0436\u043a\u0430",
+        "description": "\u043f\u0440\u043e\u0441\u0442\u043e \u043f\u043e\u043c\u044b\u0442\u044c \u0433\u043e\u043b\u043e\u0432\u0443",
+        "price": 3000.0,
+        "duration_minutes": 7,
+        "difficulty_level": 1,
+        "popularity_score": 1.0
+    }
 ]
