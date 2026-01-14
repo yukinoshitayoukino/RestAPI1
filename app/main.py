@@ -2,16 +2,15 @@ import uvicorn
 from typing import Optional, List
 from enum import Enum
 
-from fastapi import Depends, FastAPI
-from sqlalchemy import true
-from sqlmodel import Field, Session, SQLModel, create_engine
+from fastapi import Depends, FastAPI, HTTPException
+from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 class Categories(str, Enum):
     trims = "стрижка"
     coloring = "окрашивание"
     treatment = "лечение"
     styling = "укладка"
-    manicure = "маникюр"
+    shaving = "бритье"
 
 class Service(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -52,6 +51,31 @@ def create_service(service: Service, session: Session = Depends(get_session)) ->
     session.commit()
     session.refresh(service)
     return service
+
+@app.get("/services/")
+def read_services(
+    session: Session = Depends(get_session),
+    offset: int = 0,
+    limit: int = 100,
+) -> List[Service]:
+    services = session.exec(select(Service).offset(offset).limit(limit)).all()
+    return services
+
+@app.get("/services/{service_id}")
+def read_service(service_id: int, session: Session = Depends(get_session)) -> Service:
+    service = session.get(Service, service_id)
+    if not service:
+        raise HTTPException(status_code=404, detail="Service not found")
+    return service
+
+@app.delete("/services/{service_id}")
+def delete_service(service_id: int, session: Session = Depends(get_session)):
+    service = session.get(Service, service_id)
+    if not service:
+        raise HTTPException(status_code=404, detail="Service not found")
+    session.delete(service)
+    session.commit()
+    return {"ok": True}
 
 # Заглушка главной страницы
 @app.get("/")
