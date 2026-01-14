@@ -17,39 +17,36 @@ class Categories(str, Enum):
 
 # Базовый класс для создания услуги
 class Service(SQLModel, table=True):
-    id: Optional[int] = Field(
-        default=None,
-        primary_key=True
-    )
-    name: str = Field(index=True)
-    description: str = Field(index=True)
-    categories: Categories = Field(index=True)
-    price: float = Field(index=True)
-    duration_minutes: int = Field(index=True)
-    difficulty_level: int = Field(ge=1, le=5)  # Ограничение от 1 до 5
-    popularity_score: float = Field(ge=0.0, le=5.0)  # Ограничение от 0 до 5
+    id: Optional[int] = Field(default=None, primary_key=True)#Автоматически присваивается DB
+    name: str = Field(index=True, min_length=1, max_length=100)#Имя не более 100 знаков
+    description: str = Field(index=True, min_length=1, max_length=500)#Описание не более 500 знаков
+    categories: Categories = Field(index=True)#Должно соответствовать полям класса Categories
+    price: float = Field(index=True, gt=0)# Цена должна быть больше 0
+    duration_minutes: int = Field(index=True, gt=0) #Продолжительность должна быть больше 0
+    difficulty_level: int = Field(ge=1, le=5)#Сложность от 1 до 5
+    popularity_score: float = Field(ge=0.0, le=5.0)#Популярность от 0 до 5
 
 
 # Модель для создания новой услуги (без id)
 class ServiceCreate(SQLModel):
-    name: str
-    description: str
-    categories: Categories  # Валидация Enum
-    price: float
-    duration_minutes: int
-    difficulty_level: int
-    popularity_score: float
+        name: str = Field(min_length=1, max_length=100) #Имя не более 100 знаков
+        description: str = Field(min_length=1, max_length=500) #Описание не более 500 знаков
+        categories: Categories #Должно соответствовать полям класса Categories
+        price: float = Field(gt=0)  # Цена должна быть больше 0
+        duration_minutes: int = Field(gt=0)  # Продолжительность должна быть больше 0
+        difficulty_level: int = Field(ge=1, le=5) #Сложность от 1 до 5
+        popularity_score: float = Field(ge=0.0, le=5.0) #Популярность от 0 до 5
 
 
-# Модель для обновления услуги (для реализации возможности частичного обновления тип поля Optional)
+# Модель для обновления услуги (для реализации возможности частичного обновления тип поля Optional)(Валидация происходит аналогично другим классам)
 class ServiceUpdate(SQLModel):
-    name: Optional[str] = None
-    description: Optional[str] = None
+    name: Optional[str] = Field(default=None, min_length=1, max_length=100)
+    description: Optional[str] = Field(default=None, min_length=1, max_length=500)
     categories: Optional[Categories] = None
-    price: Optional[float] = None
-    duration_minutes: Optional[int] = None
-    difficulty_level: Optional[int] = None
-    popularity_score: Optional[float] = None
+    price: Optional[float] = Field(default=None, gt=0)
+    duration_minutes: Optional[int] = Field(default=None, gt=0)
+    difficulty_level: Optional[int] = Field(default=None, ge=1, le=5)
+    popularity_score: Optional[float] = Field(default=None, ge=0.0, le=5.0)
 
 
 # Соединение с базой данных
