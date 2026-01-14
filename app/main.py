@@ -5,7 +5,8 @@ from enum import Enum
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select, func
 
-#Категории оказываемых услуг
+
+# Категории оказываемых услуг
 class Categories(str, Enum):
     trims = "стрижка"
     coloring = "окрашивание"
@@ -13,9 +14,13 @@ class Categories(str, Enum):
     styling = "укладка"
     shaving = "бритье"
 
-#Базовый класс для создания услуги
+
+# Базовый класс для создания услуги
 class Service(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(
+        default=None,
+        primary_key=True
+    )  # Упрощено - autoincrement работает по умолчанию для primary_key
     name: str = Field(index=True)
     description: str = Field(index=True)
     categories: Categories = Field(index=True)
@@ -24,7 +29,8 @@ class Service(SQLModel, table=True):
     difficulty_level: int = Field(index=True)
     popularity_score: float = Field(index=True)
 
-#Модель для создания новой услуги (без id)
+
+# Модель для создания новой услуги (без id)
 class ServiceCreate(SQLModel):
     name: str
     description: str
@@ -34,7 +40,8 @@ class ServiceCreate(SQLModel):
     difficulty_level: int
     popularity_score: float
 
-#Модель для обновления услуги (для реализации возможности частичного обновления тип поля Options)
+
+# Модель для обновления услуги (для реализации возможности частичного обновления тип поля Optional)
 class ServiceUpdate(SQLModel):
     name: Optional[str] = None
     description: Optional[str] = None
@@ -67,19 +74,36 @@ def get_session():
 # Создание базы данных при запуске приложения
 app = FastAPI()
 
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
+
+
 """ Эта часть отвечает за список запросов и сортировку """
 
-#Создание новой услуги.
+
+# Создание новой услуги.
 @app.post("/services/")
 def create_service(service: ServiceCreate, session: Session = Depends(get_session)) -> Service:
-    # Конвертируем ServiceCreate в Service (id будет None - сгенерируется БД)
-    db_service = Service.from_orm(service)
+    # Преобразуем ServiceCreate в Service
+    service_data = service.dict()
+    db_service = Service(
+        name=service_data["name"],
+        description=service_data["description"],
+        categories=service_data["categories"],
+        price=service_data["price"],
+        duration_minutes=service_data["duration_minutes"],
+        difficulty_level=service_data["difficulty_level"],
+        popularity_score=service_data["popularity_score"]
+    )
     session.add(db_service)
     session.commit()
     session.refresh(db_service)
     return db_service
 
-#Получение услуги с возможностью сортировки
+
+# Получение услуги с возможностью сортировки
 @app.get("/services/")
 def read_services(
         session: Session = Depends(get_session),
@@ -112,12 +136,12 @@ def read_services(
     services = session.exec(query).all()
     return services
 
-#Получение статистики по числовым полям
+
+# Получение статистики по числовым полям
 @app.get("/services/statistics")
 def get_service_statistics(
         session: Session = Depends(get_session)
 ) -> Dict[str, Dict[str, Any]]:
-
     # Вычисляем статистику для каждого числового поля
     price_stats = session.exec(
         select(
@@ -183,7 +207,8 @@ def get_service_statistics(
         }
     }
 
-#Получение списка услуг
+
+# Получение услуги по ID
 @app.get("/services/{service_id}")
 def read_service(service_id: int, session: Session = Depends(get_session)) -> Service:
     service = session.get(Service, service_id)
@@ -191,7 +216,8 @@ def read_service(service_id: int, session: Session = Depends(get_session)) -> Se
         raise HTTPException(status_code=404, detail="Service not found")
     return service
 
-#Удаление услуги
+
+# Удаление услуги
 @app.delete("/services/{service_id}")
 def delete_service(service_id: int, session: Session = Depends(get_session)):
     service = session.get(Service, service_id)
@@ -201,7 +227,8 @@ def delete_service(service_id: int, session: Session = Depends(get_session)):
     session.commit()
     return {"ok": True}
 
-#Обновление существующей услуги
+
+# Обновление существующей услуги
 @app.patch("/services/{service_id}", response_model=Service)
 def update_service(service_id: int, service_update: ServiceUpdate, session: Session = Depends(get_session)):
     service_db = session.get(Service, service_id)
