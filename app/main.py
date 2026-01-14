@@ -68,11 +68,9 @@ def get_service_from_param_id(service_id: int):
     raise HTTPException(status_code=404, detail="Service not found")
 
 
-# Инициализация JSONDatabase с правильным путем
+# Инициализация JSONDatabase
 try:
     from json_db_lite import JSONDatabase
-
-    # Для JSONDatabase также нужен правильный путь
     small_db = JSONDatabase(file_path=SERVICES_JSON_PATH)
 
 
