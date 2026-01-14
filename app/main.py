@@ -1,5 +1,5 @@
 import uvicorn
-from typing import Optional, Annotated
+from typing import Optional, List
 from enum import Enum
 
 from fastapi import Depends, FastAPI
@@ -39,8 +39,6 @@ def get_session():
     with Session(engine) as session:
         yield session
 
-SessionDep = Annotated[Session, Depends(get_session)]
-
 # Создание базы данных при запуске приложения
 app = FastAPI()
 
@@ -49,7 +47,7 @@ def on_startup():
     create_db_and_tables()
 
 @app.post("/services/")
-def create_service(service: Service, session: SessionDep) -> Service:
+def create_service(service: Service, session: Session = Depends(get_session)) -> Service:
     session.add(service)
     session.commit()
     session.refresh(service)
