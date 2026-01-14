@@ -20,14 +20,14 @@ class Service(SQLModel, table=True):
     id: Optional[int] = Field(
         default=None,
         primary_key=True
-    )  # Упрощено - autoincrement работает по умолчанию для primary_key
+    )
     name: str = Field(index=True)
     description: str = Field(index=True)
     categories: Categories = Field(index=True)
     price: float = Field(index=True)
     duration_minutes: int = Field(index=True)
-    difficulty_level: int = Field(index=True)
-    popularity_score: float = Field(index=True)
+    difficulty_level: int = Field(ge=1, le=5)  # Ограничение от 1 до 5
+    popularity_score: float = Field(ge=0.0, le=5.0)  # Ограничение от 0 до 5
 
 
 # Модель для создания новой услуги (без id)
