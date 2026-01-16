@@ -47,6 +47,10 @@ class ServiceUpdate(SQLModel):
     duration_minutes: Optional[int] = Field(default=None, gt=0)
     difficulty_level: Optional[int] = Field(default=None, ge=1, le=5)
     popularity_score: Optional[float] = Field(default=None, ge=0.0, le=5.0)
+# Модель для обновления цены в зависимости от популярности
+class PriceUpdate(SQLModel):
+    price: Optional[float] = Field(default=None, gt=0)
+    popularity_score: Optional[float] = Field(default=None, gt=0, le=5.0)
 
 
 # Соединение с базой данных
@@ -232,7 +236,23 @@ def update_service(service_id: int, service_update: ServiceUpdate, session: Sess
     if not service_db:
         raise HTTPException(status_code=404, detail="Service not found")
 
-    update_data = service_update.dict(exclude_unset=True)
+    update_data = service_update.model_dump(exclude_unset=True)
+    for field, value in update_data.items():
+        if value is not None:
+            setattr(service_db, field, value)
+
+    session.add(service_db)
+    session.commit()
+    session.refresh(service_db)
+    return service_db
+# Обновление цены в зависимости от популярности
+@app.patch("/services/{service_id}/prices", response_model=Service)
+def update_price(service_id: int, price_update: PriceUpdate, session: Session = Depends(get_session)):
+    service_db = session.get(Service, service_id)
+    if not service_db:
+        raise HTTPException(status_code=404, detail="Service not found")
+
+    update_data = price_update.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         if value is not None:
             setattr(service_db, field, value)
